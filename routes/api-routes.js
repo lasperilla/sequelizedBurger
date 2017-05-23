@@ -12,7 +12,7 @@ var db = require("../models");
 // =============================================================
 module.exports = function(app) {
 
-  // GET route for getting all of the burgers
+  // GET route for getting all of the burgers if they want
   app.get("/api/burgers/", function(req, res) {
     db.Burger.findAll({})
     .then(function(dbBurger) {
@@ -22,38 +22,27 @@ module.exports = function(app) {
 
   // POST route for saving a new burger
   app.post("/", function(req, res) {
-    console.log(req);
     db.Burger.create({
-      burger_name: req.body.burger_name,
-      devoured: false
+      burger_name: req.body.burger_name
     })
     .then(function(dbBurger) {
       res.redirect("/");
     });
   });
 
-  // DELETE route for deleting burgers
-  app.delete("/api/burgers/:id", function(req, res) {
-    db.Burger.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-    .then(function(dbBurger) {
-      res.json(dbBurger);
-    });
-  });
-
+ 
   // PUT route for updating burgers
-  app.put("/api/burgers", function(req, res) {
-    db.Burger.update(req.body,
+  app.put("/:id", function(req, res) {
+    db.Burger.update(
+      {devoured:true
+      },
       {
         where: {
-          id: req.body.id
+          id: req.params.id
         }
       })
     .then(function(dbBurger) {
-      res.json(dbBurger);
+      res.redirect("/");
     });
   });
 };
