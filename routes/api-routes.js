@@ -26,7 +26,7 @@ module.exports = function(app) {
       burger_name: req.body.burger_name
     })
     .then(function(dbBurger) {
-      res.redirect("/");
+      res.redirect("/#burgers");
     });
   });
 
@@ -42,7 +42,7 @@ module.exports = function(app) {
         }
       })
     .then(function(dbBurger) {
-      res.redirect("/");
+      res.redirect("/#burgers");
     });
   });
 };
